@@ -5,8 +5,10 @@ services:
     build:
       context: ./frontend
       dockerfile: Dockerfile
+    env_file:
+      - ./frontend/.env.local
     ports:
-      - "3000:3000"
+      - "${FRONTEND_PORT}:3000"
     volumes:
       - ./frontend:/app
       - /app/node_modules
@@ -18,8 +20,10 @@ services:
     build:
       context: ./backend
       dockerfile: Dockerfile
+    env_file:
+      - ./backend/.env
     ports:
-      - "8001:8001"
+      - "${BACKEND_PORT}:8001"
     volumes:
       - ./backend:/app
     command: uvicorn main:app --host 0.0.0.0 --port 8001 --reload
